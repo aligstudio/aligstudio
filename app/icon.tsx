@@ -1,6 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { getContent } from '@/lib/content';
 import { resolveImageSrc } from '@/lib/og-assets';
+import { DEFAULT_LOGO_DATA_URI } from '@/lib/logo-data';
 
 export const runtime = 'nodejs';
 export const size = { width: 64, height: 64 };
@@ -10,7 +11,7 @@ export default async function Icon() {
   const content = await getContent();
   const accent = content.brand.accent;
   const bg = content.brand.bg || '#08090a';
-  const logoSrc = await resolveImageSrc(content.brand.logoImage);
+  const logoSrc = (await resolveImageSrc(content.brand.logoImage)) || DEFAULT_LOGO_DATA_URI;
 
   if (logoSrc) {
     return new ImageResponse(

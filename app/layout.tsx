@@ -80,8 +80,11 @@ export async function generateMetadata(): Promise<Metadata> {
       images: seo.ogImage ? [seo.ogImage] : ['/opengraph-image']
     },
     icons: {
-      icon: [{ url: '/icon', type: 'image/png' }],
-      shortcut: ['/icon'],
+      icon: [
+        { url: '/favicon.ico', sizes: 'any' },
+        { url: '/icon', type: 'image/png' }
+      ],
+      shortcut: ['/favicon.ico'],
       apple: ['/icon']
     },
     manifest: '/manifest.webmanifest',

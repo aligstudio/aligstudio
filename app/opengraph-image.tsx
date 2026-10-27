@@ -1,6 +1,7 @@
 import { ImageResponse } from 'next/og';
 import { getContent } from '@/lib/content';
 import { resolveImageSrc } from '@/lib/og-assets';
+import { DEFAULT_LOGO_DATA_URI } from '@/lib/logo-data';
 import { contrastInk, hexToRgb, SITE_URL } from '@/lib/utils';
 
 export const runtime = 'nodejs';
@@ -17,7 +18,7 @@ export default async function OpengraphImage() {
   const { r, g, b } = hexToRgb(accent);
   const accentInk = contrastInk(accent);
   const host = new URL(SITE_URL).host.replace(/^www\./, '').toUpperCase();
-  const logoSrc = await resolveImageSrc(content.brand.logoImage);
+  const logoSrc = (await resolveImageSrc(content.brand.logoImage)) || DEFAULT_LOGO_DATA_URI;
 
   return new ImageResponse(
     (
