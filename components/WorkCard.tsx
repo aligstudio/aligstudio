@@ -30,7 +30,7 @@ export function WorkCard({ item, index, allItems, size = 'default' }: WorkCardPr
       <div className="work-card__poster">
         {item.image ? (
           <>
-            <img src={item.image} alt={item.title} loading="lazy" />
+            <img src={item.image} alt={item.title} loading="lazy" decoding="async" />
             <span className="work-card__shade" />
           </>
         ) : (

@@ -38,7 +38,7 @@ export function WorksExplorer({
 
   return (
     <div className="works-explorer">
-      {categories.length > 1 ? (
+      {categories.length > 1 && items.length >= 4 ? (
         <div className="works-filter" role="tablist" aria-label="Kategori filtresi">
           <button
             type="button"
