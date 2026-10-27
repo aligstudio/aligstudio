@@ -7,6 +7,7 @@ import { ADMIN_TABS, THEME_PRESETS, type ThemePreset } from '@/lib/admin-schema'
 import type { SiteContent, StorageMode } from '@/lib/types';
 import { contrastInk, deepMerge, isPlainObject } from '@/lib/utils';
 import { FieldRenderer } from './fields';
+import { ConsentView } from './ConsentView';
 import { InboxView } from './InboxView';
 
 type Toast = { type: 'success' | 'error'; text: string };
@@ -38,6 +39,7 @@ function setByPath<T>(object: T, path: string, value: unknown): T {
 }
 
 const INBOX_TAB_ID = 'inbox';
+const CONSENT_TAB_ID = 'consent';
 const INBOX_META = {
   title: 'Gelen Kutusu',
   description: 'Brief formundan gelen mesajları oku, cevapla ve yönet.'
@@ -87,10 +89,16 @@ export function AdminApp({
 
   const tab = ADMIN_TABS.find((item) => item.id === tabId) ?? ADMIN_TABS[0];
   const isInbox = tabId === INBOX_TAB_ID;
+  const isConsent = tabId === CONSENT_TAB_ID;
 
   useEffect(() => {
     const stored = window.localStorage.getItem('alig-admin-tab');
-    if (stored && (stored === INBOX_TAB_ID || ADMIN_TABS.some((item) => item.id === stored))) {
+    if (
+      stored &&
+      (stored === INBOX_TAB_ID ||
+        stored === CONSENT_TAB_ID ||
+        ADMIN_TABS.some((item) => item.id === stored))
+    ) {
       setTabId(stored);
     }
   }, []);
@@ -306,6 +314,17 @@ export function AdminApp({
               <span className="admin-nav__num">—</span>
             )}
           </button>
+          <button
+            type="button"
+            className={`admin-nav__item ${isConsent ? 'is-active' : ''}`}
+            onClick={() => setTabId(CONSENT_TAB_ID)}
+          >
+            <span className="admin-nav__icon">
+              <Icon name="lock" size={17} />
+            </span>
+            <span>Çerez Onayları</span>
+            <span className="admin-nav__num">—</span>
+          </button>
           <span className="admin-nav__divider">İçerik</span>
           {ADMIN_TABS.map((item, index) => {
             const tabDirty = dirtyTabs.has(item.id);
@@ -366,10 +385,16 @@ export function AdminApp({
         <header className="admin-top">
           <div className="admin-top__copy">
             <span className="admin-top__kicker">
-              {isInbox ? 'Brief Merkezi' : 'Tam CMS & Tema Motoru'}
+              {isInbox ? 'Brief Merkezi' : isConsent ? 'Ziyaretçi Onayları' : 'Tam CMS & Tema Motoru'}
             </span>
-            <h1>{isInbox ? INBOX_META.title : tab.title}</h1>
-            <p>{isInbox ? INBOX_META.description : tab.description}</p>
+            <h1>{isInbox ? INBOX_META.title : isConsent ? 'Çerez Onayları' : tab.title}</h1>
+            <p>
+              {isInbox
+                ? INBOX_META.description
+                : isConsent
+                  ? 'Zorunlu çerez bildirimi onaylarının kayıtları ve özeti.'
+                  : tab.description}
+            </p>
           </div>
           <div className="admin-top__actions">
             {!isInbox ? (
@@ -516,6 +541,8 @@ export function AdminApp({
 
           {isInbox ? (
             <InboxView onUnreadChange={setInboxUnread} />
+          ) : isConsent ? (
+            <ConsentView />
           ) : (
           <div className="admin-groups">
             {tab.groups.map((group) => (

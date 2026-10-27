@@ -6,6 +6,7 @@ import {
   Space_Grotesk
 } from 'next/font/google';
 import type { CSSProperties } from 'react';
+import { CookieConsent } from '@/components/CookieConsent';
 import { getContent } from '@/lib/content';
 import { contrastInk, hexToRgb, serializeJsonLd, SITE_URL } from '@/lib/utils';
 import './globals.css';
@@ -209,6 +210,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </a>
         <span id="top" />
         {children}
+        <CookieConsent />
         <div className="noise" aria-hidden="true" />
       </body>
     </html>

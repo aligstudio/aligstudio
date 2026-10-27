@@ -200,3 +200,64 @@ export async function writeStoredInbox(data: unknown): Promise<void> {
   await fs.mkdir(path.dirname(LOCAL_INBOX_FILE), { recursive: true });
   await fs.writeFile(LOCAL_INBOX_FILE, body, 'utf8');
 }
+
+
+/**
+ * Cookie consent log is stored as a single JSON document next to the inbox:
+ * Vercel Blob in production, .data/consent.json locally. Records contain no
+ * personal data (timestamp, page path, coarse client info) so — unlike the
+ * inbox — the document is kept in plain JSON.
+ */
+const CONSENT_BLOB_PATH = 'aligstudio/data/consent.json';
+const LOCAL_CONSENT_FILE = path.join(process.cwd(), '.data', 'consent.json');
+
+export async function readStoredConsent(): Promise<unknown | null> {
+  if (getStorageMode() === 'blob') {
+    const token = getBlobToken();
+    const { list } = await blobSdk();
+    const { blobs } = await list({ prefix: CONSENT_BLOB_PATH, limit: 10, token });
+    if (!blobs.length) return null;
+    const latest = newestFirst(blobs)[0];
+    const response = await fetch(latest.url, { cache: 'no-store' });
+    if (!response.ok) throw new Error(`Çerez kayıtları okunamadı (${response.status})`);
+    return (await response.json()) as unknown;
+  }
+
+  if (getStorageMode() === 'local') {
+    try {
+      const raw = await fs.readFile(LOCAL_CONSENT_FILE, 'utf8');
+      return JSON.parse(raw) as unknown;
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code === 'ENOENT') return null;
+      throw error;
+    }
+  }
+
+  return null;
+}
+
+export async function writeStoredConsent(data: unknown): Promise<void> {
+  const mode = getStorageMode();
+  const body = JSON.stringify(data, null, 2);
+
+  if (mode === 'locked') {
+    throw new Error(
+      'İçerik deposu bağlı değil. Vercel projesine bir Blob store ekleyip BLOB_READ_WRITE_TOKEN ortam değişkenini tanımlayın.'
+    );
+  }
+
+  if (mode === 'blob') {
+    const token = getBlobToken();
+    const { put } = await blobSdk();
+    await put(CONSENT_BLOB_PATH, body, {
+      access: 'public',
+      contentType: 'application/json',
+      addRandomSuffix: false,
+      token
+    });
+    return;
+  }
+
+  await fs.mkdir(path.dirname(LOCAL_CONSENT_FILE), { recursive: true });
+  await fs.writeFile(LOCAL_CONSENT_FILE, body, 'utf8');
+}

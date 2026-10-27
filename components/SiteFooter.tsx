@@ -56,11 +56,15 @@ export function SiteFooter({ content }: { content: SiteContent }) {
               </a>
             ) : null}
             {contact.whatsapp ? (
-              <a href={safeHref(contact.whatsapp, '#')} target="_blank" rel="noreferrer">
-                WhatsApp
-              </a>
+              <p>
+                <a href={safeHref(contact.whatsapp, '#')} target="_blank" rel="noreferrer">
+                  WhatsApp
+                </a>
+              </p>
             ) : null}
-            <Link href="/hizmetler">{content.services.allLinkLabel || 'Hizmetler'}</Link>
+            <p>
+              <Link href="/hizmetler">{content.services.allLinkLabel || 'Hizmetler'}</Link>
+            </p>
           </div>
 
           <div className="site-footer__col">
@@ -93,6 +97,10 @@ export function SiteFooter({ content }: { content: SiteContent }) {
 
         <div className="site-footer__bottom">
           <p>{footer.copyright}</p>
+          <p className="site-footer__legal">
+            <Link href="/kvkk">KVKK Aydınlatma Metni</Link>
+            <Link href="/gizlilik">Gizlilik &amp; Çerez Politikası</Link>
+          </p>
           {footer.statusText ? (
             <p className="site-footer__made">
               <span className="status-dot" /> {footer.statusText}
