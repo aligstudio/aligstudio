@@ -53,6 +53,13 @@ export function middleware(request: NextRequest) {
     });
   }
 
+  // Sorgu parametrelerini (?v=12 vb.) ana sayfadan temizle: /?x -> / (308, kalıcı)
+  if (pathname === '/' && request.nextUrl.search) {
+    const clean = request.nextUrl.clone();
+    clean.search = '';
+    return NextResponse.redirect(clean, 308);
+  }
+
   return NextResponse.next();
 }
 
