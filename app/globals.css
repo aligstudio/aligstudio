@@ -3179,6 +3179,153 @@ p {
 }
 
 /* ==========================================================================
+   Faz 1 — görsel katman: derinlik, mikro etkileşim, ritim
+   (Renk paleti dokunulmadı; tüm efektler mevcut değişkenleri kullanır.
+   Film grain zaten .noise katmanıyla sağlanıyor — body::after eklenmedi.)
+   ========================================================================== */
+
+/* hero glow: ikinci radyal katman + yavaş nefes alma */
+.hero__glow {
+  background:
+    radial-gradient(circle at 32% 34%, rgba(var(--accent-rgb), 0.09), transparent 58%),
+    radial-gradient(circle, rgba(var(--accent-rgb), 0.14), transparent 66%);
+  animation: hero-glow-breathe 12s ease-in-out infinite;
+}
+
+@keyframes hero-glow-breathe {
+  0%,
+  100% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.1) translate(-2.5%, 3%);
+    opacity: 1;
+  }
+}
+
+/* kart üst kenarı: ince ışık çizgisi, hover'da aksana döner */
+.service-card {
+  position: relative;
+}
+
+.service-card::before,
+.hero-showcase::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 14%;
+  right: 14%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--ink-rgb), 0.35), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.service-card:hover::before,
+.hero-showcase:hover::before {
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.95), transparent);
+}
+
+/* buton shine: hover'da tek geçişlik diyagonal ışık */
+.btn {
+  overflow: hidden;
+}
+
+.btn--accent::after {
+  content: '';
+  position: absolute;
+  top: -25%;
+  bottom: -25%;
+  left: -40%;
+  width: 32%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transform: skewX(-18deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.btn--accent:hover::after,
+.btn--accent:focus-visible::after {
+  animation: btn-shine 0.65s var(--ease);
+}
+
+@keyframes btn-shine {
+  0% {
+    left: -40%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    left: 135%;
+    opacity: 0;
+  }
+}
+
+/* reveal: mekanizma değişmez, sadece yumuşak blur geçişi eklenir */
+.reveal-ready [data-reveal] {
+  transition:
+    opacity 0.8s var(--ease),
+    transform 0.8s var(--ease),
+    filter 0.8s var(--ease);
+  filter: blur(0);
+}
+
+.reveal-ready [data-reveal][data-reveal-pending] {
+  filter: blur(9px);
+  will-change: opacity, transform, filter;
+}
+
+/* kart hover: mevcut translateY/border deseni korunur, gölge + iç ışık eklenir */
+.service-card:hover,
+.hero-bento-card:hover {
+  box-shadow:
+    0 22px 44px -14px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(var(--ink-rgb), 0.08);
+}
+
+.work-card {
+  transition: transform 0.35s var(--ease);
+}
+
+.work-card:hover {
+  transform: translateY(-4px);
+}
+
+.work-card:hover .work-card__poster {
+  border-color: rgba(var(--accent-rgb), 0.5);
+  box-shadow:
+    0 26px 50px -16px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(var(--ink-rgb), 0.1);
+}
+
+/* bölüm başlıklarında serif italik vurgu (hero em deseniyle aynı) */
+.section-head__title em {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+
+/* masaüstü ritmi: bölüm boşluğu + works grid nefesi (mobil bloklar sonda kalır) */
+@media (min-width: 1024px) {
+  .section {
+    padding: 112px 0;
+  }
+
+  .works__grid {
+    gap: 64px 40px;
+  }
+
+  .work-card__body {
+    padding: 22px 4px 0;
+  }
+}
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
 
@@ -3887,5 +4034,25 @@ p {
 @media (max-width: 820px) {
   .section {
     padding: 68px 0;
+  }
+}
+
+/* ==========================================================================
+   Faz 1 — prefers-reduced-motion: yeni animasyonlar kapalı
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .hero__glow {
+    animation: none;
+  }
+
+  .btn--accent::after {
+    animation: none;
+    opacity: 0;
+  }
+
+  .reveal-ready [data-reveal],
+  .reveal-ready [data-reveal][data-reveal-pending] {
+    filter: none;
+    transition: none;
   }
 }
