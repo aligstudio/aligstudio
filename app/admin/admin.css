@@ -2087,6 +2087,148 @@ select {
   text-align: center;
 }
 
+/* ==========================================================================
+   Panel rötuşu — animasyonlu, daha net arayüz (zemin ve altyapı aynı kalır)
+   ========================================================================== */
+
+/* giriş ekranı: kademeli rise */
+.login__brand,
+.login__hero,
+.login__foot {
+  animation: admin-rise 0.6s var(--ease) both;
+}
+
+.login__hero {
+  animation-delay: 0.08s;
+}
+
+.login__foot {
+  animation-delay: 0.16s;
+}
+
+.login__form-wrap {
+  animation: admin-rise 0.55s var(--ease) 0.12s both;
+}
+
+.login__error {
+  animation: admin-shake 0.4s var(--ease);
+}
+
+@keyframes admin-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  75% {
+    transform: translateX(-2px);
+  }
+}
+
+/* birincil buton: hover'da ışık süpürmesi */
+.admin-btn--primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-btn--primary::after {
+  content: '';
+  position: absolute;
+  top: -30%;
+  bottom: -30%;
+  left: -45%;
+  width: 34%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-18deg);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.admin-btn--primary:hover:not(:disabled)::after {
+  animation: admin-shine 0.6s var(--ease);
+}
+
+@keyframes admin-shine {
+  0% {
+    left: -45%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    left: 140%;
+    opacity: 0;
+  }
+}
+
+/* sidebar + üst bar girişi */
+.admin-side {
+  animation: admin-fade 0.45s var(--ease) both;
+}
+
+.admin-top {
+  animation: admin-fade 0.5s var(--ease) 0.05s both;
+}
+
+@keyframes admin-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* nav: aktif ikon pop */
+.admin-nav button.is-active .admin-nav__icon {
+  animation: admin-pop 0.35s var(--ease);
+}
+
+@keyframes admin-pop {
+  0% {
+    transform: scale(0.7);
+  }
+  60% {
+    transform: scale(1.18);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* sekme değişince içerik animasyonu (key ile remount olur) */
+.admin-groups {
+  animation: admin-rise 0.45s var(--ease) both;
+}
+
+/* kaydedilmemiş değişiklik rozeti: nabız */
+.admin-dirty.is-dirty {
+  animation: admin-dirty-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes admin-dirty-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(242, 193, 78, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(242, 193, 78, 0);
+  }
+}
+
+/* üst barda birincil aksiyonu büyüt (Yayınla her zaman görünür) */
+.admin-top__actions .admin-btn--primary {
+  height: 46px;
+  padding: 0 22px;
+  font-size: 13.5px;
+}
+
 /* ---------- responsive ---------- */
 
 @media (max-width: 1100px) {
@@ -2413,5 +2555,28 @@ select {
 
   .admin-consent__ua {
     text-align: left;
+  }
+}
+
+/* ==========================================================================
+   Panel rötuşu — prefers-reduced-motion: yeni animasyonlar kapalı
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .login__brand,
+  .login__hero,
+  .login__foot,
+  .login__form-wrap,
+  .login__error,
+  .admin-side,
+  .admin-top,
+  .admin-groups,
+  .admin-dirty.is-dirty,
+  .admin-nav button.is-active .admin-nav__icon {
+    animation: none !important;
+  }
+
+  .admin-btn--primary::after {
+    animation: none !important;
+    opacity: 0;
   }
 }

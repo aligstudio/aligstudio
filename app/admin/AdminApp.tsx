@@ -544,7 +544,7 @@ export function AdminApp({
           ) : isConsent ? (
             <ConsentView />
           ) : (
-          <div className="admin-groups">
+          <div className="admin-groups" key={tabId}>
             {tab.groups.map((group) => (
               <section className="admin-group" key={group.title}>
                 <header className="admin-group__head">
