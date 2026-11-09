@@ -3412,6 +3412,126 @@ p {
 }
 
 /* ==========================================================================
+   F1 — atmosfer & mikro etkileşim (yavaş, göze yormaz; reduced-motion'da kapalı)
+   ========================================================================== */
+
+/* aurora: içerigin arkasinda iki yavas blob */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+body::before {
+  width: 62vmax;
+  height: 62vmax;
+  top: -28vmax;
+  right: -18vmax;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.1), transparent 62%);
+  animation: aurora-a 28s ease-in-out infinite alternate;
+}
+
+body::after {
+  width: 52vmax;
+  height: 52vmax;
+  bottom: -24vmax;
+  left: -16vmax;
+  background: radial-gradient(circle, rgba(90, 140, 255, 0.07), transparent 60%);
+  animation: aurora-b 34s ease-in-out infinite alternate;
+}
+
+@keyframes aurora-a {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-6vmax, 5vmax, 0) scale(1.12);
+  }
+}
+
+@keyframes aurora-b {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  to {
+    transform: translate3d(5vmax, -4vmax, 0) scale(0.95);
+  }
+}
+
+/* scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+  transform: scaleX(0);
+  transform-origin: left;
+  z-index: 400;
+  pointer-events: none;
+}
+
+/* cursor glow (sadece ince isaretci olan cihazlarda) */
+.cursor-glow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.075), transparent 62%);
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+  pointer-events: none;
+  z-index: 1;
+  will-change: transform;
+}
+
+@media (pointer: coarse) {
+  .cursor-glow {
+    display: none;
+  }
+}
+
+/* header: asagi kaydirinca gizle, yukari kaydirinca getir */
+.site-header {
+  transition:
+    padding 0.3s var(--ease),
+    background 0.3s var(--ease),
+    border-color 0.3s var(--ease),
+    transform 0.35s var(--ease);
+}
+
+.site-header.is-hidden {
+  transform: translateY(-110%);
+}
+
+/* magnetic butonlar (JS 'translate' property'sini set eder) */
+.btn {
+  transition:
+    transform 0.25s var(--ease),
+    background 0.25s var(--ease),
+    border-color 0.25s var(--ease),
+    color 0.25s var(--ease),
+    box-shadow 0.25s var(--ease),
+    translate 0.18s var(--ease);
+}
+
+/* work karti posteri: hafif 3D tilt (JS transform set eder) */
+.work-card__poster {
+  transition:
+    transform 0.18s var(--ease),
+    border-color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+  will-change: transform;
+}
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
 
@@ -4140,6 +4260,33 @@ p {
   .reveal-ready [data-reveal][data-reveal-pending] {
     filter: none;
     transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after {
+    animation: none;
+  }
+
+  .cursor-glow {
+    display: none;
+  }
+
+  .site-header {
+    transition:
+      padding 0.3s var(--ease),
+      background 0.3s var(--ease),
+      border-color 0.3s var(--ease);
+  }
+
+  .site-header.is-hidden {
+    transform: none;
+  }
+
+  .work-card__poster {
+    transition: none;
+    will-change: auto;
   }
 }
 

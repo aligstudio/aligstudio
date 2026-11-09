@@ -7,6 +7,7 @@ import {
 } from 'next/font/google';
 import type { CSSProperties } from 'react';
 import { CookieConsent } from '@/components/CookieConsent';
+import { Effects } from '@/components/Effects';
 import { FloatingWhatsApp } from '@/components/FloatingWhatsApp';
 import { getContent } from '@/lib/content';
 import { contrastInk, hexToRgb, serializeJsonLd, SITE_URL } from '@/lib/utils';
@@ -210,6 +211,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           İçeriğe geç
         </a>
         <span id="top" />
+        <Effects />
         {children}
         <FloatingWhatsApp href={content.contact.whatsapp} />
         <CookieConsent />
