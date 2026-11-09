@@ -9,6 +9,10 @@ export function SiteFooter({ content }: { content: SiteContent }) {
   return (
     <footer className="site-footer">
       <div className="container">
+        <div className="site-footer__wordmark" aria-hidden="true">
+          {brand.logoText}
+        </div>
+
         <div className="site-footer__top">
           <div className="site-footer__brand">
             <Link href="/" className="brand brand--footer" aria-label={`${brand.name} ana sayfa`}>
@@ -89,10 +93,6 @@ export function SiteFooter({ content }: { content: SiteContent }) {
               {footer.backToTopLabel || 'Yukarı çık'} <Icon name="arrowUp" size={14} />
             </a>
           </div>
-        </div>
-
-        <div className="site-footer__wordmark" aria-hidden="true">
-          {brand.logoText}
         </div>
 
         <div className="site-footer__bottom">
