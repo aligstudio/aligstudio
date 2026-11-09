@@ -39,6 +39,7 @@ export default async function HomePage() {
         {s.showYoutube ? <Youtube youtube={content.youtube} /> : null}
         {s.showTestimonials ? <Testimonials testimonials={content.testimonials} /> : null}
         {s.showFaq ? <Faq faq={content.faq} /> : null}
+        {s.showMarquee ? <Marquee items={content.marquee} reverse /> : null}
         {s.showContact ? <Contact contact={content.contact} social={content.social} /> : null}
       </main>
       <SiteFooter content={content} />

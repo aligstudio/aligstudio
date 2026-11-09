@@ -8,11 +8,11 @@ function formatMarqueeText(text: string): string {
     .toLocaleUpperCase('tr-TR');
 }
 
-export function Marquee({ items }: { items: string[] }) {
+export function Marquee({ items, reverse = false }: { items: string[]; reverse?: boolean }) {
   if (!items.length) return null;
   const row = [...items, ...items];
   return (
-    <div className="marquee" aria-hidden="true">
+    <div className={`marquee ${reverse ? 'marquee--reverse' : ''}`} aria-hidden="true">
       <div className="marquee__track">
         {row.map((item, index) => (
           <span className="marquee__item" key={`${item}-${index}`}>
