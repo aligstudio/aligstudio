@@ -3359,6 +3359,17 @@ p {
 }
 
 /* ==========================================================================
+   Faz 2 — header: scroll'da glass daralma (is-scrolled JS'te zaten var)
+   ========================================================================== */
+
+.site-header.is-scrolled:not(.is-open) {
+  background: var(--glass-bg);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom-color: var(--line);
+}
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
 
