@@ -2,6 +2,12 @@
   "version": 1,
   "events": [
     {
+      "id": "391102dd-ea2d-45cf-b4c6-e5523f756934",
+      "createdAt": "2026-11-09T22:19:01.360Z",
+      "path": "/",
+      "ua": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Mobile Safari/537.36"
+    },
+    {
       "id": "25c959e8-3570-4ebe-b949-0b3a4c377130",
       "createdAt": "2026-11-09T22:08:52.352Z",
       "path": "/",
