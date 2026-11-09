@@ -31,6 +31,11 @@ const GH_CONSENT_PATH = '_data/consent.json';
 const GH_UPLOAD_PREFIX = 'public/uploads/';
 
 function ghRepo(): { owner: string; repo: string } | null {
+  const explicit = process.env.GITHUB_STORAGE_REPO;
+  if (explicit) {
+    const [owner, repo] = explicit.split('/');
+    if (owner && repo) return { owner, repo };
+  }
   const owner = process.env.VERCEL_GIT_REPO_OWNER;
   const repo = process.env.VERCEL_GIT_REPO_SLUG;
   if (!owner || !repo) return null;
@@ -75,7 +80,10 @@ async function ghPutFile(path: string, base64: string, message: string): Promise
   });
   if (!response.ok) {
     const detail = await response.text().catch(() => '');
-    throw new Error(`GitHub yazma hatası (${response.status}): ${detail.slice(0, 200)}`);
+    throw new Error(
+      `GitHub yazma hatası (${response.status}) — hedef: ${repo.owner}/${repo.repo} @ ${path}. ` +
+        `Token fine-grained olmalı, 'Repository access'e bu repo ekli olmalı ve 'Contents: Read and write' izni verilmeli; token sahibi bu repo'da yazma yetkisine sahip olmalı. ${detail.slice(0, 160)}`
+    );
   }
 }
 
