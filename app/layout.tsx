@@ -9,6 +9,7 @@ import type { CSSProperties } from 'react';
 import { CookieConsent } from '@/components/CookieConsent';
 import { Effects } from '@/components/Effects';
 import { FloatingWhatsApp } from '@/components/FloatingWhatsApp';
+import { Preloader } from '@/components/Preloader';
 import { getContent } from '@/lib/content';
 import { contrastInk, hexToRgb, serializeJsonLd, SITE_URL } from '@/lib/utils';
 import './globals.css';
@@ -207,6 +208,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body style={style} data-theme={isLight ? 'light' : 'dark'}>
+        <Preloader />
         <a href="#main" className="skip-link">
           İçeriğe geç
         </a>

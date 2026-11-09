@@ -3576,6 +3576,88 @@ body::after {
 }
 
 /* ==========================================================================
+   Preloader — markalı ilk açılış (kısa; algılanan performansı artırır)
+   ========================================================================== */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  transition:
+    opacity 0.5s var(--ease),
+    visibility 0.5s;
+}
+
+.preloader.is-done {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.preloader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.preloader__logo {
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+  border-radius: 22px;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba(var(--accent-rgb), 0.25);
+  animation: preloader-pop 0.9s var(--ease) both;
+}
+
+.preloader__word {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.42em;
+  color: var(--muted);
+}
+
+.preloader__bar {
+  width: 180px;
+  height: 2px;
+  border-radius: 99px;
+  background: var(--line-strong);
+  overflow: hidden;
+}
+
+.preloader__bar i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: preloader-fill 1.15s var(--ease) 0.1s forwards;
+}
+
+@keyframes preloader-pop {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes preloader-fill {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
 
@@ -4338,6 +4420,20 @@ body::after {
   .hero-showcase,
   .hero-showcase__media img {
     animation: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader__logo {
+    animation-duration: 0.2s;
+  }
+
+  .preloader__bar i {
+    animation-duration: 0.2s;
+  }
+
+  .preloader {
+    transition: none;
   }
 }
 
