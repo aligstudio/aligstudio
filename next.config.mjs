@@ -32,6 +32,10 @@ const nextConfig = {
       {
         source: '/api/:path*',
         headers: [{ key: 'Cache-Control', value: 'no-store, max-age=0' }]
+      },
+      {
+        source: '/((?!_next/static|_next/image|favicon.ico|icon|manifest|robots|sitemap|opengraph|logo|favicon-source|uploads).*)',
+        headers: [{ key: 'Cache-Control', value: 'no-store, max-age=0' }]
       }
     ];
   }

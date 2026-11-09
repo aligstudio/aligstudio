@@ -57,7 +57,8 @@ function ghRawUrl(path: string): string {
 }
 
 async function ghReadJson(path: string): Promise<unknown | null> {
-  const response = await fetch(ghRawUrl(path), { cache: 'no-store' });
+  // raw.githubusercontent CDN ~5dk cache'li; query param ile her okuma guncel origin'den gelir
+  const response = await fetch(`${ghRawUrl(path)}?t=${Date.now()}`, { cache: 'no-store' });
   if (response.status === 404) return null;
   if (!response.ok) throw new Error(`GitHub okuma hatası (${response.status})`);
   return (await response.json()) as unknown;

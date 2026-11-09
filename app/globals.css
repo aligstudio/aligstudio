@@ -3689,6 +3689,10 @@ body::after {
   transform-origin: 50% 100%;
 }
 
+.hero-stat {
+  min-width: 0;
+}
+
 .hero-stat__value {
   white-space: nowrap;
 }
