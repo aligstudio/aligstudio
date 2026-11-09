@@ -194,4 +194,3 @@ Ayrıntılı değerlendirme, kalan riskler ve yayın öncesi kontrol listesi: **
 - **Dış bağlantı:** Bir projeye `https://...` bağlantısı eklerseniz vaka sayfasında "Projeyi gör" butonu çıkar.
 - **SEO:** Başlık ve açıklama panelden değiştirilir; canonical, sitemap ve JSON-LD otomatik güncellenir.
 - **Güvenlik güncellemesi:** Bağımlılık taraması `pnpm audit --prod` ile yapılabilir. Bu sürümde PostCSS için `pnpm-workspace.yaml` override'ı uygulanmıştır.
-
