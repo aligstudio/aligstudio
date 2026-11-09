@@ -20,11 +20,16 @@ export function SectionHead({
   const head = hasAccent ? words.slice(0, -1).join(' ') : '';
   const accentWord = hasAccent ? words[words.length - 1] : '';
 
+  const numMatch = eyebrow.match(/^(\d{1,2})\s*[—–-]\s*(.+)$/);
+  const num = numMatch ? numMatch[1] : null;
+  const eyebrowText = numMatch ? numMatch[2] : eyebrow;
+
   return (
     <div className={`section-head ${className}`} data-reveal>
       <div className="section-head__lead">
+        {num ? <span className="section-head__num">{num} /</span> : null}
         <p className="eyebrow">
-          <i /> {eyebrow}
+          <i /> {eyebrowText}
         </p>
         <h2 className="section-head__title">
           {hasAccent ? (
