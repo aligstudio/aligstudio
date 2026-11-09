@@ -3326,6 +3326,39 @@ p {
 }
 
 /* ==========================================================================
+   Faz 2 — works: editoryal grid + mono numara
+   ========================================================================== */
+
+.work-card__num {
+  display: block;
+  margin-bottom: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--muted-2);
+  transition: color 0.3s var(--ease);
+}
+
+.work-card:hover .work-card__num {
+  color: var(--accent);
+}
+
+.work-card:hover .work-card__poster > img,
+.work-card:hover .work-art {
+  transform: scale(1.04);
+}
+
+@media (min-width: 1024px) {
+  .works__grid .work-card:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .works__grid .work-card:first-child .work-card__poster {
+    aspect-ratio: 21 / 10;
+  }
+}
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
 

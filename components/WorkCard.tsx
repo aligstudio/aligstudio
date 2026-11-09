@@ -60,6 +60,7 @@ export function WorkCard({ item, index, allItems, size = 'default' }: WorkCardPr
       </div>
 
       <div className="work-card__body">
+        <span className="work-card__num">{String(index + 1).padStart(2, '0')}</span>
         <div className="work-card__row">
           <h3>{item.title}</h3>
           <span className="work-card__year">{item.year}</span>
