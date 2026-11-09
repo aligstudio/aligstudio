@@ -16,7 +16,6 @@ export function Effects() {
     try {
       let lastY = window.scrollY;
       let ticking = false;
-      const showcase = document.querySelector<HTMLElement>('.hero-showcase');
       const onScroll = () => {
         if (ticking) return;
         ticking = true;
@@ -32,9 +31,6 @@ export function Effects() {
               if (y > 320 && y > lastY + 4) header.classList.add('is-hidden');
               else if (y < lastY - 4 || y <= 320) header.classList.remove('is-hidden');
             }
-            if (showcase && !reduce && y < window.innerHeight * 1.5) {
-              showcase.style.translate = `0 ${(y * 0.08).toFixed(1)}px`;
-            }
             lastY = y;
           } finally {
             ticking = false;
@@ -43,10 +39,7 @@ export function Effects() {
       };
       onScroll();
       window.addEventListener('scroll', onScroll, { passive: true });
-      cleanups.push(() => {
-        window.removeEventListener('scroll', onScroll);
-        if (showcase) showcase.style.translate = '';
-      });
+      cleanups.push(() => window.removeEventListener('scroll', onScroll));
     } catch {
       /* scroll efektleri kapalı kalsa da site çalışır */
     }
