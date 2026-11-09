@@ -36,20 +36,41 @@
     "showContact": true
   },
   "nav": [
-    { "label": "Hizmetler", "href": "/hizmetler" },
-    { "label": "Çalışmalar", "href": "/calismalar" },
-    { "label": "Stüdyo", "href": "/#studyo" },
-    { "label": "SSS", "href": "/#sss" },
-    { "label": "İletişim", "href": "/#iletisim" }
+    {
+      "label": "Hizmetler",
+      "href": "/hizmetler"
+    },
+    {
+      "label": "Çalışmalar",
+      "href": "/calismalar"
+    },
+    {
+      "label": "Stüdyo",
+      "href": "/#studyo"
+    },
+    {
+      "label": "SSS",
+      "href": "/#sss"
+    },
+    {
+      "label": "İletişim",
+      "href": "/#iletisim"
+    }
   ],
   "hero": {
-    "eyebrow": "Yaratıcı teknoloji stüdyosu — İstanbul",
+    "eyebrow": "Yaratıcı teknoloji stüdyosu — Muğla",
     "title": "Dijitalde gürültü değil,",
     "titleAccent": "etki yaratıyoruz.",
     "description": "Sosyal medya, reklam prodüksiyonu, yazılım ve YouTube içerikleriyle markaların dijitaldeki sesini tasarlıyoruz. Stratejiden yayına tek ekip; tek bir hedef: akılda kalmak.",
-    "availability": "Yeni proje kontenjanı açık — 2 yer",
-    "primaryCta": { "label": "Projeni anlat", "href": "#iletisim" },
-    "secondaryCta": { "label": "Çalışmaları keşfet", "href": "/calismalar" },
+    "availability": "Yeni proje kontenjanı açık",
+    "primaryCta": {
+      "label": "Projeni anlat",
+      "href": "#iletisim"
+    },
+    "secondaryCta": {
+      "label": "Çalışmaları keşfet",
+      "href": "/calismalar"
+    },
     "showcase": {
       "badge": "STÜDYO VİTRİNİ • 04 DİSİPLİN",
       "title": "Strateji, prodüksiyon ve yazılım tek çatı altında.",
@@ -58,12 +79,29 @@
       "image": ""
     },
     "stats": [
-      { "value": "50+", "label": "tamamlanan proje" },
-      { "value": "12M+", "label": "organik görüntülenme" },
-      { "value": "30+", "label": "marka iş birliği" },
-      { "value": "6 yıl", "label": "stüdyo deneyimi" }
+      {
+        "value": "10+",
+        "label": "tamamlanan proje"
+      },
+      {
+        "value": "60M+",
+        "label": "organik görüntülenme"
+      },
+      {
+        "value": "5+",
+        "label": "marka iş birliği"
+      },
+      {
+        "value": "2024'ten beri",
+        "label": "stüdyo deneyimi"
+      }
     ],
-    "tags": ["Sosyal Medya", "Reklam Filmi", "Yazılım", "YouTube"]
+    "tags": [
+      "Sosyal Medya",
+      "Reklam Filmi",
+      "Yazılım",
+      "YouTube"
+    ]
   },
   "marquee": [
     "Sosyal Medya",
@@ -77,12 +115,16 @@
   "clients": {
     "eyebrow": "Birlikte ürettiğimiz markalar ve ekipler",
     "items": [
-      { "name": "Nova Coffee", "category": "Sosyal Medya & Lansman", "url": "" },
-      { "name": "Atlas Mobility", "category": "Marka Filmi", "url": "" },
-      { "name": "Kern Studio", "category": "Web & Tasarım Sistemi", "url": "" },
-      { "name": "Forma Athletics", "category": "YouTube Prodüksiyon", "url": "" },
-      { "name": "Mira Skin", "category": "Performans Reklamları", "url": "" },
-      { "name": "Loop Labs", "category": "Dijital Ürün & AI", "url": "" }
+      {
+        "name": "Asosyal Geyik",
+        "category": "Sosyal Medya Yönetimi",
+        "url": ""
+      },
+      {
+        "name": "Saraç Elektrik & Elektronik",
+        "category": "Dijital Kampanya",
+        "url": ""
+      }
     ]
   },
   "services": {
@@ -98,25 +140,45 @@
         "icon": "share",
         "title": "Sosyal Medya Yönetimi",
         "description": "Strateji, içerik takvimi, tasarım ve topluluk yönetimi. Markanın sesini kuruyor, her gün taze tutuyoruz.",
-        "tags": ["Strateji", "İçerik Sistemi", "Topluluk", "Reels"]
+        "tags": [
+          "Strateji",
+          "İçerik Sistemi",
+          "Topluluk",
+          "Reels"
+        ]
       },
       {
         "icon": "film",
         "title": "Reklam & Prodüksiyon",
         "description": "Konsept, senaryo, çekim ve post prodüksiyon. Reklam filmi, ürün çekimi ve kampanya işlerini uçtan uca üretiyoruz.",
-        "tags": ["Konsept", "Çekim", "Kurgu", "Motion"]
+        "tags": [
+          "Konsept",
+          "Çekim",
+          "Kurgu",
+          "Motion"
+        ]
       },
       {
         "icon": "code",
         "title": "Yazılım & Teknoloji",
         "description": "Web siteleri, dijital ürünler ve otomasyonlar. Hızlı, ölçülebilir ve tasarımı koda aynı hassasiyetle taşıyan işler.",
-        "tags": ["Web", "Dijital Ürün", "Otomasyon", "AI"]
+        "tags": [
+          "Web",
+          "Dijital Ürün",
+          "Otomasyon",
+          "AI"
+        ]
       },
       {
         "icon": "play",
         "title": "YouTube İçerik Üretimi",
         "description": "Kanal stratejisi, format geliştirme, çekim ve kurgu. İzlenen, kaydedilen ve konuşulan videolar üretiyoruz.",
-        "tags": ["Format", "Çekim", "Kurgu", "Büyüme"]
+        "tags": [
+          "Format",
+          "Çekim",
+          "Kurgu",
+          "Büyüme"
+        ]
       }
     ]
   },
@@ -143,70 +205,34 @@
     },
     "items": [
       {
-        "title": "Nova Coffee",
+        "title": "Asosyal Geyik",
         "category": "Sosyal Medya",
         "year": "2026",
-        "description": "Yeni nesil kahve markası için 90 günlük içerik sistemi ve lansman kampanyası.",
-        "details": "Markanın mevcut kanallarındaki dağınık dili tek bir görsel sistemde topladık. 90 günlük içerik takvimi, haftalık Reels formatları ve lansman günlerine özel seriler kurguladık.\n\nÜretim ve yayın takvimi aynı akışta yönetildi; böylece kampanya boyunca hem hız hem tutarlılık korundu.",
-        "tags": ["İçerik sistemi", "Reels", "Lansman"],
+        "description": "Sosyal medyanın kaotik dünyasına mizahla bakan, günlük hayatın absürtlüklerini caps'lerle buluşturan dijital mizah projesi.",
+        "details": "",
+        "tags": [
+          "İçerik sistemi",
+          "Reels",
+          "Lansman"
+        ],
         "image": "",
         "url": "",
         "accent": "#C6F24E"
       },
       {
-        "title": "Atlas Mobility",
-        "category": "Marka Filmi",
-        "year": "2025",
-        "description": "Elektrikli ulaşım girişimi için manifesto filmi ve dijital kampanya.",
-        "details": "Manifesto filminin konseptinden final kurgusuna kadar tüm süreç tek ekipte ilerledi. Filmin dijital kesitleri, statik kampanya görselleri ve lansman günü içerikleri aynı çekim setinden türetildi.\n\nMarkanın geleceğe dair anlatısını, ürünün sessiz gücünü öne çıkaran bir görsel dilde kurguladık.",
-        "tags": ["Film", "Kampanya", "Motion"],
+        "title": "Saraç Elektrik & Elektronik",
+        "category": "Dijital Dönüşüm",
+        "year": "2026",
+        "description": "Yerel işletmelerin müşterilerine anında ulaşmasını sağlayan Saraç Elektrik için Wp Business altyapısı ve Google Harita üzerinden yol tarifi/iletişim çözümleri.",
+        "details": "",
+        "tags": [
+          "Web",
+          "Google Harita",
+          "İletişim"
+        ],
         "image": "",
         "url": "",
         "accent": "#FF7A59"
-      },
-      {
-        "title": "Kern Studio",
-        "category": "Web & Yazılım",
-        "year": "2026",
-        "description": "Mimarlık stüdyosu için portfolyo deneyimi ve proje yönetim paneli.",
-        "details": "Portfolyo deneyimini proje yönetim paneline bağlayan bir yapı kurduk. Mimarlık pratiğinin görsel dilini dijital arayüze taşıyan bir tasarım sistemi ve içerik yönetimi akışı geliştirdik.\n\nProjelerin sunumu, görsel arşivi ve ekip içi güncellemeler tek bir panelden yönetilebilir hale geldi.",
-        "tags": ["Web", "Panel", "Tasarım sistemi"],
-        "image": "",
-        "url": "",
-        "accent": "#8B9CFF"
-      },
-      {
-        "title": "Forma Athletics",
-        "category": "YouTube",
-        "year": "2025",
-        "description": "Spor markası için haftalık video serisi ve kanal büyüme stratejisi.",
-        "details": "Haftalık video serisinin formatını, çekim düzenini ve kurgu ritmini kanal verisiyle birlikte kurguladık. Her bölüm aynı şablon içinde üretilirken markanın tonu korundu.\n\nBaşlık, kapak ve ilk üç saniye kurgusu izlenme verisine göre optimize edildi.",
-        "tags": ["YouTube", "Seri", "Büyüme"],
-        "image": "",
-        "url": "",
-        "accent": "#56E0C0"
-      },
-      {
-        "title": "Mira Skin",
-        "category": "Reklam",
-        "year": "2025",
-        "description": "Cilt bakım markası için ürün lansmanı ve performans odaklı reklam seti.",
-        "details": "Ürün lansmanı için performans odaklı reklam setleri ürettik. Farklı kitlelere göre uyarlanan kısa videolar ve statik görseller, tek bir kampanya çatısı altında toplandı.\n\nÜretim seti; ürünün dokusunu ve ritüelini öne çıkaran sade bir görsel dil üzerine kuruldu.",
-        "tags": ["Reklam", "Ürün", "Performans"],
-        "image": "",
-        "url": "",
-        "accent": "#F7A8C4"
-      },
-      {
-        "title": "Loop Labs",
-        "category": "Dijital Ürün",
-        "year": "2024",
-        "description": "Yapay zekâ destekli içerik üretim aracının arayüz ve marka tasarımı.",
-        "details": "Yapay zekâ destekli üretim aracının arayüzünü ve marka kimliğini sıfırdan tasarladık. Karmaşık akışları sade bir kullanıcı deneyimine indiren bir tasarım sistemi kurguladık.\n\nÜrünün teknik derinliğini kullanıcıya hissettirmeden anlatan bir arayüz dili oluşturduk.",
-        "tags": ["Ürün", "Arayüz", "AI"],
-        "image": "",
-        "url": "",
-        "accent": "#FFD166"
       }
     ]
   },
@@ -215,7 +241,7 @@
     "title": "Strateji, tasarım ve kod; aynı masada.",
     "description": "ALIG Studio, sosyal medyanın hızını prodüksiyonun kalitesiyle birleştiren bağımsız bir stüdyo. Reklamcılığın hikâye anlatımını, yazılımın ölçülebilirliğiyle aynı masaya koyuyoruz. Bu yüzden işlerimiz sadece iyi görünmüyor; çalışıyor.",
     "image": "",
-    "badgeTop": "STUDIO / ISTANBUL",
+    "badgeTop": "STUDIO / MUĞLA",
     "badgeBottom": "İçerik • Prodüksiyon • Yazılım",
     "ctaLabel": "Neler yapıyoruz?",
     "ctaHref": "/hizmetler",
@@ -226,10 +252,22 @@
       "YouTube kanal yönetimi ve büyüme"
     ],
     "stats": [
-      { "value": "%96", "label": "uzun süreli iş ortaklığı" },
-      { "value": "4", "label": "entegre disiplin" },
-      { "value": "<24s", "label": "brief dönüş hızı" },
-      { "value": "360°", "label": "uçtan uca üretim" }
+      {
+        "value": "%96",
+        "label": "uzun süreli iş ortaklığı"
+      },
+      {
+        "value": "4",
+        "label": "entegre disiplin"
+      },
+      {
+        "value": "<24s",
+        "label": "brief dönüş hızı"
+      },
+      {
+        "value": "360°",
+        "label": "uçtan uca üretim"
+      }
     ]
   },
   "process": {
@@ -329,10 +367,10 @@
     "eyebrow": "08 — İletişim",
     "title": "Bir fikrin mi var? Konuşalım.",
     "description": "Yeni bir marka, büyümek isteyen bir kanal veya sıfırdan bir dijital ürün... Kısa bir brief yeter. 24 saat içinde dönüş yapıyoruz.",
-    "email": "merhaba@aligstudio.com",
+    "email": "info@aligstudio.com",
     "phone": "",
     "whatsapp": "",
-    "location": "İstanbul, Türkiye",
+    "location": "Muğla, Türkiye",
     "responseBadge": "Ortalama dönüş süresi: < 24 saat",
     "formTitle": "Brief formu",
     "formNote": "Formu doldur; 24 saat içinde sana dönelim.",
@@ -363,10 +401,22 @@
     "errorNetwork": "Bağlantı kurulamadı. İnternetini kontrol edip tekrar dene."
   },
   "social": [
-    { "platform": "instagram", "url": "https://www.instagram.com/aligstudio" },
-    { "platform": "youtube", "url": "https://www.youtube.com/@aligstudio" },
-    { "platform": "linkedin", "url": "https://www.linkedin.com/company/aligstudio" },
-    { "platform": "behance", "url": "https://www.behance.net/aligstudio" }
+    {
+      "platform": "instagram",
+      "url": "https://www.instagram.com/aligstudio"
+    },
+    {
+      "platform": "youtube",
+      "url": "https://www.youtube.com/@aligstudio"
+    },
+    {
+      "platform": "linkedin",
+      "url": "https://www.linkedin.com/company/aligstudio"
+    },
+    {
+      "platform": "behance",
+      "url": "https://www.behance.net/aligstudio"
+    }
   ],
   "footer": {
     "note": "Sosyal medya, reklam, yazılım ve YouTube içerikleriyle markalar için çalışan bağımsız bir yaratıcı teknoloji stüdyosu.",
