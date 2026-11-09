@@ -3725,6 +3725,129 @@ p {
 }
 
 
+/* ==========================================================================
+   Premium görsel katman — additive upgrades (renk paleti korunur)
+   ========================================================================== */
+
+/* İnce film grain dokusu: koyu zemine organik derinlik katar */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+  opacity: 0.028;
+  pointer-events: none;
+}
+
+/* Hero glow: ikinci katman + yavaş nefes animasyonu */
+.hero__glow::after {
+  content: '';
+  position: absolute;
+  top: 26%;
+  left: -22%;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.08), transparent 62%);
+  filter: blur(40px);
+}
+
+.hero__glow {
+  animation: hero-glow-float 12s ease-in-out infinite;
+}
+
+@keyframes hero-glow-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-3%, 4%, 0) scale(1.06);
+  }
+}
+
+/* Kart üst kenarına ince ışık çizgisi (services + showcase) */
+.service-card::before,
+.hero-showcase::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--ink-rgb), 0.35), transparent);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.service-card:hover::before,
+.hero-showcase:hover::before {
+  background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.75), transparent);
+  opacity: 1;
+}
+
+.service-card,
+.hero-showcase {
+  position: relative;
+}
+
+/* Aksan butonda shine sweep */
+.btn {
+  overflow: hidden;
+}
+
+.btn--accent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s var(--ease);
+  pointer-events: none;
+}
+
+.btn--accent:hover::before {
+  left: 130%;
+}
+
+/* Reveal: yumuşak blur ile daha sinematik giriş */
+.reveal-ready [data-reveal] {
+  transition:
+    opacity 0.8s var(--ease),
+    transform 0.8s var(--ease),
+    filter 0.8s var(--ease);
+}
+
+.reveal-ready [data-reveal][data-reveal-pending] {
+  filter: blur(10px);
+}
+
+/* Masaüstünde daha geniş, premium bölüm ritmi */
+@media (min-width: 1024px) {
+  .section {
+    padding: 112px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__glow {
+    animation: none;
+  }
+
+  .reveal-ready [data-reveal][data-reveal-pending] {
+    filter: none;
+  }
+
+  .btn--accent::before {
+    display: none;
+  }
+}
+
 /* ---------- Güçlendirilmiş sabit başlık ---------- */
 .site-header.is-scrolled,
 .site-header.is-open {
