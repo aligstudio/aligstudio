@@ -242,4 +242,4 @@ export type SiteContent = {
   };
 };
 
-export type StorageMode = 'blob' | 'local' | 'locked';
+export type StorageMode = 'blob' | 'github' | 'local' | 'locked';

@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
 import { isAdminRequest, isSameOrigin } from '@/lib/auth';
+import { getStorageMode } from '@/lib/content';
 import { saveUpload } from '@/lib/storage';
 
 export const runtime = 'nodejs';
 
-const MAX_BYTES = 4 * 1024 * 1024;
+const MAX_BYTES = getStorageMode() === 'github' ? 1024 * 1024 : 4 * 1024 * 1024;
 const ALLOWED = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/avif'];
 
 function detectImageMime(bytes: Uint8Array): string | null {
@@ -97,7 +98,7 @@ export async function POST(request: Request) {
 
   if (file.size > MAX_BYTES) {
     return NextResponse.json(
-      { ok: false, message: 'Görsel en fazla 4 MB olabilir.' },
+      { ok: false, message: `Görsel en fazla ${MAX_BYTES / (1024 * 1024)} MB olabilir.` },
       { status: 413 }
     );
   }

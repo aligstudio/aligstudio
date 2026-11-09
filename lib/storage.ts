@@ -25,8 +25,67 @@ function getBlobToken(): string | undefined {
   return undefined;
 }
 
+const GH_CONTENT_PATH = '_data/content.json';
+const GH_INBOX_PATH = '_data/inbox.json';
+const GH_CONSENT_PATH = '_data/consent.json';
+const GH_UPLOAD_PREFIX = 'public/uploads/';
+
+function ghRepo(): { owner: string; repo: string } | null {
+  const owner = process.env.VERCEL_GIT_REPO_OWNER;
+  const repo = process.env.VERCEL_GIT_REPO_SLUG;
+  if (!owner || !repo) return null;
+  return { owner, repo };
+}
+
+function ghHeaders(): Record<string, string> {
+  return {
+    Authorization: `Bearer ${process.env.GITHUB_STORAGE_TOKEN}`,
+    Accept: 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28'
+  };
+}
+
+function ghRawUrl(path: string): string {
+  const repo = ghRepo();
+  if (!repo) throw new Error('GitHub deposu bulunamadı (VERCEL_GIT_REPO_*).');
+  return `https://raw.githubusercontent.com/${repo.owner}/${repo.repo}/main/${path}`;
+}
+
+async function ghReadJson(path: string): Promise<unknown | null> {
+  const response = await fetch(ghRawUrl(path), { cache: 'no-store' });
+  if (response.status === 404) return null;
+  if (!response.ok) throw new Error(`GitHub okuma hatası (${response.status})`);
+  return (await response.json()) as unknown;
+}
+
+async function ghPutFile(path: string, base64: string, message: string): Promise<void> {
+  const repo = ghRepo();
+  if (!repo) throw new Error('GitHub deposu bulunamadı.');
+  const api = `https://api.github.com/repos/${repo.owner}/${repo.repo}/contents/${path}`;
+  let sha: string | undefined;
+  const meta = await fetch(api, { headers: ghHeaders(), cache: 'no-store' });
+  if (meta.ok) {
+    const data = (await meta.json()) as { sha?: string };
+    sha = data.sha;
+  }
+  const response = await fetch(api, {
+    method: 'PUT',
+    headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, content: base64, ...(sha ? { sha } : {}) })
+  });
+  if (!response.ok) {
+    const detail = await response.text().catch(() => '');
+    throw new Error(`GitHub yazma hatası (${response.status}): ${detail.slice(0, 200)}`);
+  }
+}
+
+async function ghWriteJson(path: string, data: unknown): Promise<void> {
+  await ghPutFile(path, Buffer.from(JSON.stringify(data, null, 2)).toString('base64'), `panel: update ${path}`);
+}
+
 export function getStorageMode(): StorageMode {
   if (getBlobToken()) return 'blob';
+  if (process.env.GITHUB_STORAGE_TOKEN && ghRepo()) return 'github';
   if (process.env.VERCEL) return 'locked';
   return 'local';
 }
@@ -42,6 +101,7 @@ function newestFirst<T extends { uploadedAt: Date | string }>(blobs: T[]): T[] {
 }
 
 export async function readStoredContent(): Promise<unknown | null> {
+  if (getStorageMode() === 'github') return ghReadJson(GH_CONTENT_PATH);
   if (getStorageMode() === 'blob') {
     const token = getBlobToken();
     const { list } = await blobSdk();
@@ -69,6 +129,11 @@ export async function readStoredContent(): Promise<unknown | null> {
 export async function writeStoredContent(content: SiteContent): Promise<void> {
   const mode = getStorageMode();
   const body = JSON.stringify(content, null, 2);
+
+  if (mode === 'github') {
+    await ghWriteJson(GH_CONTENT_PATH, content);
+    return;
+  }
 
   if (mode === 'locked') {
     throw new Error(
@@ -133,6 +198,16 @@ export async function saveUpload(file: File, verifiedMime?: string): Promise<str
     return blob.url;
   }
 
+  if (mode === 'github') {
+    const bytes = Buffer.from(await file.arrayBuffer());
+    if (bytes.length > 1024 * 1024) {
+      throw new Error('Görsel en fazla 1 MB olabilir (GitHub deposu modu).');
+    }
+    const ghPath = `${GH_UPLOAD_PREFIX}${filename}`;
+    await ghPutFile(ghPath, bytes.toString('base64'), `panel: upload ${filename}`);
+    return ghRawUrl(ghPath);
+  }
+
   if (mode === 'local') {
     const dir = path.join(process.cwd(), 'public', 'uploads');
     await fs.mkdir(dir, { recursive: true });
@@ -151,6 +226,7 @@ export async function saveUpload(file: File, verifiedMime?: string): Promise<str
  * next to the content: Vercel Blob in production, .data/inbox.json locally.
  */
 export async function readStoredInbox(): Promise<unknown | null> {
+  if (getStorageMode() === 'github') return ghReadJson(GH_INBOX_PATH);
   if (getStorageMode() === 'blob') {
     const token = getBlobToken();
     const { list } = await blobSdk();
@@ -178,6 +254,11 @@ export async function readStoredInbox(): Promise<unknown | null> {
 export async function writeStoredInbox(data: unknown): Promise<void> {
   const mode = getStorageMode();
   const body = JSON.stringify(data, null, 2);
+
+  if (mode === 'github') {
+    await ghWriteJson(GH_INBOX_PATH, data);
+    return;
+  }
 
   if (mode === 'locked') {
     throw new Error(
@@ -212,6 +293,7 @@ const CONSENT_BLOB_PATH = 'aligstudio/data/consent.json';
 const LOCAL_CONSENT_FILE = path.join(process.cwd(), '.data', 'consent.json');
 
 export async function readStoredConsent(): Promise<unknown | null> {
+  if (getStorageMode() === 'github') return ghReadJson(GH_CONSENT_PATH);
   if (getStorageMode() === 'blob') {
     const token = getBlobToken();
     const { list } = await blobSdk();
@@ -239,6 +321,11 @@ export async function readStoredConsent(): Promise<unknown | null> {
 export async function writeStoredConsent(data: unknown): Promise<void> {
   const mode = getStorageMode();
   const body = JSON.stringify(data, null, 2);
+
+  if (mode === 'github') {
+    await ghWriteJson(GH_CONSENT_PATH, data);
+    return;
+  }
 
   if (mode === 'locked') {
     throw new Error(

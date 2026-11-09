@@ -47,6 +47,7 @@ const INBOX_META = {
 
 const STORAGE_LABELS: Record<StorageMode, { label: string; tone: string }> = {
   blob: { label: 'Vercel Blob bağlı', tone: 'ok' },
+  github: { label: 'GitHub deposu bağlı', tone: 'ok' },
   local: { label: 'Yerel geliştirme', tone: 'warn' },
   locked: { label: 'Depolama bağlı değil', tone: 'error' }
 };
