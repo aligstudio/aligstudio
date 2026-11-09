@@ -3597,6 +3597,18 @@ body::after {
   pointer-events: none;
 }
 
+/* JS çalışmazsa bile ekranı asla kilitleme: 4.5s sonra CSS tek başına gizler */
+.preloader {
+  animation: preloader-autohide 0.5s var(--ease) 4.5s forwards;
+}
+
+@keyframes preloader-autohide {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
 .preloader__inner {
   display: flex;
   flex-direction: column;
@@ -4434,6 +4446,8 @@ body::after {
 
   .preloader {
     transition: none;
+    animation-duration: 0.2s;
+    animation-delay: 0.2s;
   }
 }
 
