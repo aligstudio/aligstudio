@@ -4142,3 +4142,14 @@ p {
     transition: none;
   }
 }
+
+/* ---------- WhatsApp butonu: solid logo + tema aksanıyla uyumlu ---------- */
+.wa-float {
+  background: var(--accent);
+  color: var(--accent-ink);
+  box-shadow: 0 14px 34px rgba(var(--accent-rgb), 0.35);
+}
+
+.wa-float:hover {
+  box-shadow: 0 18px 40px rgba(var(--accent-rgb), 0.45);
+}

@@ -17,7 +17,7 @@ export function FloatingWhatsApp({ href }: { href?: string }) {
       aria-label="WhatsApp ile yaz"
       title="WhatsApp ile yaz"
     >
-      <Icon name="whatsapp" size={23} />
+      <Icon name="whatsapp" size={26} />
     </a>
   );
 }
