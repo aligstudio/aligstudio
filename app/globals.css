@@ -3532,6 +3532,50 @@ body::after {
 }
 
 /* ==========================================================================
+   F2 — hero: tam ekran marka sahnesi (büyük tipografi + logolu vitrin float)
+   ========================================================================== */
+
+.hero {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 132px 0 56px;
+}
+
+.hero__title {
+  font-size: clamp(3.1rem, 7.2vw, 7.2rem);
+}
+
+.hero-showcase {
+  animation: showcase-float 7s ease-in-out infinite;
+}
+
+@keyframes showcase-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.hero-showcase__media img {
+  animation: logo-breathe 7s ease-in-out infinite;
+}
+
+@keyframes logo-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+/* ==========================================================================
    Responsive
    ========================================================================== */
 
@@ -4287,6 +4331,13 @@ body::after {
   .work-card__poster {
     transition: none;
     will-change: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-showcase,
+  .hero-showcase__media img {
+    animation: none;
   }
 }
 
