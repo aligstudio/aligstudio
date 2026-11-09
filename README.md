@@ -1,5 +1,5 @@
 # ALIG Studio — web sitesi + içerik paneli
-
+ 
 ALIG Studio için tasarlanmış, Vercel üzerinde çalışan modern web sitesi ve tamamen panelden düzenlenebilen içerik sistemi.
 
 - **Site:** sosyal medya, reklam prodüksiyonu, yazılım ve YouTube içerik üretimini tek bir yaratıcı teknoloji stüdyosu diliyle anlatır.
