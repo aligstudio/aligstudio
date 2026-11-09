@@ -4,12 +4,12 @@
     "logoText": "ALIG",
     "logoImage": "/logo.png",
     "tagline": "Yaratıcı teknoloji stüdyosu",
-    "bg": "#08090A",
-    "bgElevated": "#101211",
-    "ink": "#F2F2EC",
-    "muted": "#929891",
-    "accent": "#00E0FF",
-    "accentSoft": "#C9F7FF"
+    "bg": "#070910",
+    "bgElevated": "#0F1320",
+    "ink": "#F0F4FF",
+    "muted": "#8D97B5",
+    "accent": "#5482FF",
+    "accentSoft": "#A3C0FF"
   },
   "seo": {
     "title": "ALIG Studio — Sosyal Medya, Reklam, Yazılım ve YouTube Stüdyosu",
