@@ -322,23 +322,7 @@
   "testimonials": {
     "eyebrow": "06 — Referanslar",
     "title": "Birlikte çalıştığımız ekipler ne diyor?",
-    "items": [
-      {
-        "quote": "İçerik üretiminde hız ve kaliteyi aynı anda tutan ekiplerden biri. Brief'ten yayına kadar süreç bizim için gerçekten kolaydı.",
-        "name": "Elif Demir",
-        "role": "Pazarlama Direktörü, Nova Coffee"
-      },
-      {
-        "quote": "Sadece güzel bir film değil; markanın ne söylediğini netleştiren bir iş çıkardılar. Lansmandan sonra gelen geri dönüşler beklentimizin üzerindeydi.",
-        "name": "Mert Aydın",
-        "role": "Kurucu, Atlas Mobility"
-      },
-      {
-        "quote": "YouTube tarafında format geliştirme ve kurgu ritmi kanalı bambaşka bir yere taşıdı. Veriye bakarak üretiyorlar, tahminle değil.",
-        "name": "Selin Kara",
-        "role": "Marka Yöneticisi, Forma Athletics"
-      }
-    ]
+    "items": []
   },
   "faq": {
     "eyebrow": "07 — Sıkça sorulan sorular",
