@@ -1,7 +1,7 @@
 # ALIG Studio — web sitesi + içerik paneli
  
 ALIG Studio için tasarlanmış, Vercel üzerinde çalışan modern web sitesi ve tamamen panelden düzenlenebilen içerik sistemi.
-
+ 
 - **Site:** sosyal medya, reklam prodüksiyonu, yazılım ve YouTube içerik üretimini tek bir yaratıcı teknoloji stüdyosu diliyle anlatır.
 - **Panel:** logo, renkler, tüm metinler, menü, hizmetler, projeler, YouTube videoları, referanslar, iletişim bilgileri ve footer — hepsi tarayıcıdan düzenlenir.
 - **Gizli panel adresi:** `/admin` kullanılmaz. Panel yalnızca `ADMIN_PATH` ortam değişkeninde tanımlı gizli adresten açılır; doğrudan `/admin` adresi 404 döner.
