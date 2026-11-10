@@ -70,7 +70,8 @@ async function ghPutFile(path: string, base64: string, message: string): Promise
   const api = `https://api.github.com/repos/${repo.owner}/${repo.repo}/contents/${path}`;
   for (let attempt = 0; attempt < 2; attempt += 1) {
     let sha: string | undefined;
-    const meta = await fetch(api, { headers: ghHeaders(), cache: 'no-store' });
+    // API edge cache'i atla: her denemede taze sha al (aksi halde 2. yazış 409/422 ile kalır)
+    const meta = await fetch(`${api}?t=${Date.now()}`, { headers: ghHeaders(), cache: 'no-store' });
     if (meta.ok) {
       const data = (await meta.json()) as { sha?: string };
       sha = data.sha;
