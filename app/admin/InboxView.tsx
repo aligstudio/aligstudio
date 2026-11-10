@@ -113,6 +113,27 @@ export function InboxView({ onUnreadChange }: Props) {
         );
       }
       await load();
+      // doğrula: silinenler hâlâ varsa (yazma gecikmesi/çakışma) kullanıcıya net hata göster
+      if (action === 'delete') {
+        try {
+          const check = await fetch('/api/admin/inbox', {
+            cache: 'no-store',
+            signal: AbortSignal.timeout(10000)
+          });
+          const r = (await check.json().catch(() => ({}))) as { messages?: { id: string }[] };
+          const still = (r.messages ?? []).filter((m) =>
+            ids === 'all' ? true : ids.includes(m.id)
+          );
+          if (check.ok && still.length > 0) {
+            setError(
+              'Silme henüz kalıcı olmadı (depolama yazısı gecikmiş olabilir). "Tekrar dene"ye bas.'
+            );
+            await load();
+          }
+        } catch {
+          /* doğrulama atlanabilir */
+        }
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'İşlem tamamlanamadı.');
     } finally {
