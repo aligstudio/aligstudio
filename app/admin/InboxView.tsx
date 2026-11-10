@@ -84,7 +84,8 @@ export function InboxView({ onUnreadChange }: Props) {
       const response = await fetch('/api/admin/inbox', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ action, ids })
+        body: JSON.stringify({ action, ids }),
+        signal: AbortSignal.timeout(15000)
       });
       const result = (await response.json().catch(() => ({}))) as { ok?: boolean; message?: string };
       if (response.status === 401) {
@@ -94,10 +95,17 @@ export function InboxView({ onUnreadChange }: Props) {
       if (!response.ok || !result.ok) {
         throw new Error(result.message || 'İşlem tamamlanamadı.');
       }
-      if (action === 'delete' && ids !== 'all') {
-        setSelectedId((current) => (current && ids.includes(current) ? null : current));
+      if (action === 'delete') {
+        if (ids !== 'all') {
+          setSelectedId((current) => (current && ids.includes(current) ? null : current));
+        } else {
+          setSelectedId(null);
+        }
+        // anlık (optimistic) güncelleme — liste hemen boşalsın
+        setMessages((prev) =>
+          prev ? prev.filter((m) => (ids === 'all' ? false : !ids.includes(m.id))) : prev
+        );
       }
-      if (action === 'delete' && ids === 'all') setSelectedId(null);
       await load();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'İşlem tamamlanamadı.');

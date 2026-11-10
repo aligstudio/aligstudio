@@ -151,7 +151,8 @@ export function AdminApp({
       const response = await fetch('/api/admin/content', {
         method: 'PUT',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ content })
+        body: JSON.stringify({ content }),
+        signal: AbortSignal.timeout(20000)
       });
       const result = (await response.json().catch(() => ({}))) as {
         ok?: boolean;
