@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import {
-  Instrument_Serif,
-  Inter,
   JetBrains_Mono,
-  Manrope
+  Playfair_Display,
+  Source_Sans_3
 } from 'next/font/google';
 import type { CSSProperties } from 'react';
 import { CookieConsent } from '@/components/CookieConsent';
@@ -14,25 +13,18 @@ import { getContent } from '@/lib/content';
 import { contrastInk, hexToRgb, serializeJsonLd, SITE_URL } from '@/lib/utils';
 import './globals.css';
 
-const fontDisplay = Manrope({
+const fontDisplay = Playfair_Display({
   subsets: ['latin', 'latin-ext'],
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  style: ['normal', 'italic'],
   variable: '--font-display',
   display: 'swap'
 });
 
-const fontBody = Inter({
+const fontBody = Source_Sans_3({
   subsets: ['latin', 'latin-ext'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-body',
-  display: 'swap'
-});
-
-const fontSerif = Instrument_Serif({
-  subsets: ['latin'],
-  weight: ['400'],
-  style: ['normal', 'italic'],
-  variable: '--font-serif',
   display: 'swap'
 });
 
@@ -192,12 +184,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     '@graph': graph
   };
 
-  const fontClasses = [
-    fontDisplay.variable,
-    fontBody.variable,
-    fontSerif.variable,
-    fontMono.variable
-  ].join(' ');
+  const fontClasses = [fontDisplay.variable, fontBody.variable, fontMono.variable].join(' ');
 
   return (
     <html lang="tr" className={fontClasses} suppressHydrationWarning>
