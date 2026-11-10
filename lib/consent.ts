@@ -61,8 +61,9 @@ async function loadDocument(): Promise<ConsentDocument> {
   try {
     stored = await readStoredConsent();
   } catch (error) {
+    // Okuma hatasında asla boş dönme: sonraki yazış eski kayıtları siler (data loss)
     console.error('[consent] Çerez kayıtları okunamadı.', error);
-    return emptyDocument();
+    throw error;
   }
 
   if (!isPlainObject(stored)) return emptyDocument();

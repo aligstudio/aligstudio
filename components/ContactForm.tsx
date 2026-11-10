@@ -9,6 +9,7 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
 export function ContactForm({ contact }: { contact: SiteContent['contact'] }) {
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState('');
+  const [warn, setWarn] = useState('');
 
   const topics =
     Array.isArray(contact.topics) && contact.topics.length > 0
@@ -36,6 +37,7 @@ export function ContactForm({ contact }: { contact: SiteContent['contact'] }) {
 
     setStatus('sending');
     setError('');
+    setWarn('');
 
     try {
       const response = await fetch('/api/contact', {
@@ -47,10 +49,16 @@ export function ContactForm({ contact }: { contact: SiteContent['contact'] }) {
         ok?: boolean;
         error?: string;
         message?: string;
+        stored?: boolean;
       };
 
       if (response.ok && result.ok) {
         setStatus('sent');
+        setWarn(
+          result.stored === false
+            ? 'Mesajın e-posta ile ulaştı; panel kaydı şu an yapılamadı, kısa süre sonra tekrar dener misin?'
+            : ''
+        );
         form.reset();
         return;
       }
@@ -74,6 +82,11 @@ export function ContactForm({ contact }: { contact: SiteContent['contact'] }) {
           {contact.successMessage ||
             '24 saat içinde dönüş yapacağız. Bu arada işlerimize göz atabilirsin.'}
         </p>
+        {warn ? (
+          <p className="contact-form__error" role="alert">
+            {warn}
+          </p>
+        ) : null}
         <button type="button" className="btn btn--ghost btn--sm" onClick={() => setStatus('idle')}>
           {contact.newMessageLabel || 'Yeni mesaj yaz'}
         </button>

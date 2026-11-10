@@ -120,8 +120,9 @@ async function loadDocument(): Promise<InboxDocument> {
   try {
     stored = await readStoredInbox();
   } catch (error) {
+    // Okuma hatasında asla boş dönme: aksi halde sonraki yazış eski mesajları siler (data loss)
     console.error('[inbox] Gelen kutusu okunamadı.', error);
-    return emptyDocument();
+    throw error;
   }
 
   if (!isPlainObject(stored)) return emptyDocument();

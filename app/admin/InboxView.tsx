@@ -62,6 +62,12 @@ export function InboxView({ onUnreadChange }: Props) {
     void load();
   }, [load]);
 
+  // sekme açıkken yeni briefleri otomatik çek (15s polling)
+  useEffect(() => {
+    const t = window.setInterval(() => void load(), 15000);
+    return () => window.clearInterval(t);
+  }, [load]);
+
   const items = useMemo(() => {
     const all = messages ?? [];
     return filter === 'unread' ? all.filter((item) => !item.read) : all;
