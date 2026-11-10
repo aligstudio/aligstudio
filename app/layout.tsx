@@ -3,7 +3,7 @@ import {
   Instrument_Serif,
   Inter,
   JetBrains_Mono,
-  Space_Grotesk
+  Sora
 } from 'next/font/google';
 import type { CSSProperties } from 'react';
 import { CookieConsent } from '@/components/CookieConsent';
@@ -14,7 +14,7 @@ import { getContent } from '@/lib/content';
 import { contrastInk, hexToRgb, serializeJsonLd, SITE_URL } from '@/lib/utils';
 import './globals.css';
 
-const fontDisplay = Space_Grotesk({
+const fontDisplay = Sora({
   subsets: ['latin', 'latin-ext'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-display',

@@ -20,7 +20,7 @@
   --accent-soft: #e9ffb0;
   --accent-ink: #0a0b08;
   --accent-rgb: 198, 242, 78;
-  --display: var(--font-display), 'Space Grotesk', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --display: var(--font-display), 'Sora', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --body: var(--font-body), 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --serif: var(--font-serif), 'Instrument Serif', 'Times New Roman', Times, serif;
   --mono: var(--font-mono), 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
