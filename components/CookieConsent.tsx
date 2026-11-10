@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const STORAGE_KEY = 'alig-cookie-consent';
@@ -13,6 +14,7 @@ const STORAGE_KEY = 'alig-cookie-consent';
  */
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     try {
@@ -42,7 +44,7 @@ export function CookieConsent() {
     }
   };
 
-  if (!visible) return null;
+  if (!visible || pathname.startsWith('/admin')) return null;
 
   return (
     <div className="cookie-bar" role="region" aria-label="Çerez bilgilendirmesi">

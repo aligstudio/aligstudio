@@ -68,19 +68,22 @@ async function ghPutFile(path: string, base64: string, message: string): Promise
   const repo = ghRepo();
   if (!repo) throw new Error('GitHub deposu bulunamadı.');
   const api = `https://api.github.com/repos/${repo.owner}/${repo.repo}/contents/${path}`;
-  let sha: string | undefined;
-  const meta = await fetch(api, { headers: ghHeaders(), cache: 'no-store' });
-  if (meta.ok) {
-    const data = (await meta.json()) as { sha?: string };
-    sha = data.sha;
-  }
-  const response = await fetch(api, {
-    method: 'PUT',
-    headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message, content: base64, ...(sha ? { sha } : {}) })
-  });
-  if (!response.ok) {
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    let sha: string | undefined;
+    const meta = await fetch(api, { headers: ghHeaders(), cache: 'no-store' });
+    if (meta.ok) {
+      const data = (await meta.json()) as { sha?: string };
+      sha = data.sha;
+    }
+    const response = await fetch(api, {
+      method: 'PUT',
+      headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message, content: base64, ...(sha ? { sha } : {}) })
+    });
+    if (response.ok) return;
     const detail = await response.text().catch(() => '');
+    // sha çakışması (dosya bu sırada başkası tarafından güncellendiyse) → yeni sha ile 1 kez daha dene
+    if ((response.status === 409 || response.status === 422) && attempt === 0) continue;
     throw new Error(
       `GitHub yazma hatası (${response.status}) — hedef: ${repo.owner}/${repo.repo} @ ${path}. ` +
         `Token fine-grained olmalı, 'Repository access'e bu repo ekli olmalı ve 'Contents: Read and write' izni verilmeli; token sahibi bu repo'da yazma yetkisine sahip olmalı. ${detail.slice(0, 160)}`

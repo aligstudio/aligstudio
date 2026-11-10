@@ -2580,3 +2580,133 @@ select {
     opacity: 0;
   }
 }
+
+/* ==========================================================================
+   Admin mobil — hamburger (3 çizgi) + kayar yan menü + backdrop + geçişler
+   (mevcut 900px bloğundan SONRA geldiği için öncelik onundur)
+   ========================================================================== */
+
+.admin-menu-btn {
+  display: none;
+}
+
+.admin-backdrop {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .admin-menu-btn {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex: none;
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    background: var(--glass-soft);
+    cursor: pointer;
+  }
+
+  .admin-menu-btn span {
+    width: 16px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--ink);
+    transition:
+      transform 0.25s var(--ease),
+      opacity 0.2s var(--ease);
+  }
+
+  .admin-menu-btn.is-open span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .admin-menu-btn.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .admin-menu-btn.is-open span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .admin-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 65;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s var(--ease);
+  }
+
+  .admin-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .admin-side {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 70;
+    width: min(300px, 84vw);
+    height: 100%;
+    overflow-y: auto;
+    border-right: 1px solid var(--line-strong);
+    border-bottom: none;
+    background: #0c0d0c;
+    transform: translateX(-105%);
+    transition: transform 0.3s var(--ease);
+  }
+
+  .admin-side.is-open {
+    transform: none;
+  }
+
+  .admin-nav {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+
+  .admin-nav button {
+    width: 100%;
+  }
+
+  .admin-nav button:hover {
+    transform: none;
+  }
+
+  .admin-nav__num {
+    display: block;
+  }
+
+  .admin-top {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .admin-top__copy {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .admin-top__actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-side,
+  .admin-backdrop,
+  .admin-menu-btn span {
+    transition: none;
+  }
+}

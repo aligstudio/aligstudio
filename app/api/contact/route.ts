@@ -91,10 +91,12 @@ export async function POST(request: Request) {
   // 1) The brief is ALWAYS stored in the admin inbox first — never lost,
   //    even when no e-mail provider is configured.
   let stored = true;
+  let storeError = '';
   try {
     await addMessage({ name, email, company, topic, message });
   } catch (error) {
     stored = false;
+    storeError = error instanceof Error ? error.message : 'bilinmeyen depolama hatası';
     console.error('[contact] Brief gelen kutusuna kaydedilemedi:', error);
   }
 
@@ -152,7 +154,10 @@ export async function POST(request: Request) {
   // BOTH the inbox and the e-mail delivery failed.
   if (!stored && !mailed) {
     return NextResponse.json(
-      { ok: false, message: 'Mesaj gönderilemedi. Doğrudan e-posta yazabilirsin.' },
+      {
+        ok: false,
+        message: `Mesaj gönderilemedi.${storeError ? ` Depolama hatası: ${storeError}` : ' Doğrudan e-posta yazabilirsin.'}`
+      },
       { status: 502 }
     );
   }

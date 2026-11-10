@@ -62,6 +62,7 @@ export function AdminApp({
   const [content, setContent] = useState<SiteContent>(initialContent);
   const [savedContent, setSavedContent] = useState<SiteContent>(initialContent);
   const [tabId, setTabId] = useState(ADMIN_TABS[0].id);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
   const [toast, setToast] = useState<Toast | null>(null);
@@ -279,7 +280,7 @@ export function AdminApp({
 
   return (
     <div className="admin-shell">
-      <aside className="admin-side">
+      <aside className={`admin-side ${menuOpen ? 'is-open' : ''}`}>
         <div className="admin-side__brand">
           {content.brand.logoImage ? (
             <img className="admin-side__logo" src={content.brand.logoImage} alt={content.brand.name} />
@@ -303,7 +304,10 @@ export function AdminApp({
           <button
             type="button"
             className={`admin-nav__item ${isInbox ? 'is-active' : ''}`}
-            onClick={() => setTabId(INBOX_TAB_ID)}
+            onClick={() => {
+              setTabId(INBOX_TAB_ID);
+              setMenuOpen(false);
+            }}
           >
             <span className="admin-nav__icon">
               <Icon name="mail" size={17} />
@@ -318,7 +322,10 @@ export function AdminApp({
           <button
             type="button"
             className={`admin-nav__item ${isConsent ? 'is-active' : ''}`}
-            onClick={() => setTabId(CONSENT_TAB_ID)}
+            onClick={() => {
+              setTabId(CONSENT_TAB_ID);
+              setMenuOpen(false);
+            }}
           >
             <span className="admin-nav__icon">
               <Icon name="lock" size={17} />
@@ -334,7 +341,10 @@ export function AdminApp({
                 key={item.id}
                 type="button"
                 className={item.id === tabId ? 'is-active' : undefined}
-                onClick={() => setTabId(item.id)}
+                onClick={() => {
+                  setTabId(item.id);
+                  setMenuOpen(false);
+                }}
               >
                 <span className="admin-nav__icon">
                   <Icon name={item.icon} size={17} />
@@ -382,8 +392,25 @@ export function AdminApp({
         </div>
       </aside>
 
+      <div
+        className={`admin-backdrop ${menuOpen ? 'is-open' : ''}`}
+        aria-hidden="true"
+        onClick={() => setMenuOpen(false)}
+      />
+
       <main className="admin-main">
         <header className="admin-top">
+          <button
+            type="button"
+            className={`admin-menu-btn ${menuOpen ? 'is-open' : ''}`}
+            aria-label={menuOpen ? 'Menüyü kapat' : 'Menüyü aç'}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((value) => !value)}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
           <div className="admin-top__copy">
             <span className="admin-top__kicker">
               {isInbox ? 'Brief Merkezi' : isConsent ? 'Ziyaretçi Onayları' : 'Tam CMS & Tema Motoru'}
