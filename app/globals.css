@@ -20,7 +20,7 @@
   --accent-soft: #e9ffb0;
   --accent-ink: #0a0b08;
   --accent-rgb: 198, 242, 78;
-  --display: var(--font-display), 'Sora', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --display: var(--font-display), 'Manrope', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --body: var(--font-body), 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --serif: var(--font-serif), 'Instrument Serif', 'Times New Roman', Times, serif;
   --mono: var(--font-mono), 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
@@ -693,7 +693,7 @@ p {
 .hero__title em {
   margin-top: 0.05em;
   font-family: var(--serif);
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   letter-spacing: -0.025em;
   line-height: 0.98;
@@ -2844,7 +2844,7 @@ p {
 .page-hero__title em {
   display: block;
   font-family: var(--serif);
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   letter-spacing: -0.02em;
   color: var(--accent);
@@ -3304,7 +3304,7 @@ p {
 /* bölüm başlıklarında serif italik vurgu (hero em deseniyle aynı) */
 .section-head__title em {
   font-family: var(--serif);
-  font-style: italic;
+  font-style: normal;
   font-weight: 400;
   letter-spacing: -0.02em;
   color: var(--accent);

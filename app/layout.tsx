@@ -3,7 +3,7 @@ import {
   Instrument_Serif,
   Inter,
   JetBrains_Mono,
-  Sora
+  Manrope
 } from 'next/font/google';
 import type { CSSProperties } from 'react';
 import { CookieConsent } from '@/components/CookieConsent';
@@ -14,9 +14,9 @@ import { getContent } from '@/lib/content';
 import { contrastInk, hexToRgb, serializeJsonLd, SITE_URL } from '@/lib/utils';
 import './globals.css';
 
-const fontDisplay = Sora({
+const fontDisplay = Manrope({
   subsets: ['latin', 'latin-ext'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700', '800'],
   variable: '--font-display',
   display: 'swap'
 });
